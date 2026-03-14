@@ -1,57 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Confession</title>
+    <title>Seni Çok Seviyorum</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff4b6e 0%, #ff8fab 100%);
             padding: 20px;
-            width: 90%;
-            max-width: 500px;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        p {
-            font-size: 16px;
-            color: #666;
-        }
-        .confess-button {
-            background-color: #ff4081;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
+        
+        .container {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 30px 20px;
+            max-width: 380px;
             width: 100%;
-            cursor: pointer;
-            font-size: 18px;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        
+        .heart {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: beat 1.2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        
+        h1 {
+            color: #ff4b6e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-top: 20px;
         }
-        .confess-button:hover {
-            background-color: #ff007f;
+        
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s ease;
+            min-height: 48px;
+            touch-action: manipulation;
+        }
+        
+        #nextBtn {
+            background-color: #ff4b6e;
+            color: white;
+            width: 100%;
+        }
+        
+        #nextBtn:active {
+            background-color: #e63a5a;
+            transform: scale(0.98);
+        }
+        
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+            flex: 1;
+        }
+        
+        #yesBtn:active {
+            background-color: #45a049;
+            transform: scale(0.98);
+        }
+        
+        #noBtn {
+            background-color: #888;
+            color: white;
+            flex: 1;
+            position: relative;
+            z-index: 10;
+        }
+        
+        #noBtn:active {
+            background-color: #666;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 0.95rem;
+            }
+            
+            .heart {
+                font-size: 50px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Romantic Confession</h1>
-        <p>Share your feelings and let them know how much they mean to you!</p>
-        <button class="confess-button">Confess Your Love</button>
+
+    <div id="step1" class="container">
+        <div class="heart">❤️</div>
+        <h1>Bir Dakika Bakar mısın?</h1>
+        <p>Seni kırdığım her an için çok üzgünüm. Seni ne kadar çok sevdiğimi anlatmak istiyorum.</p>
+        <button id="nextBtn">Devam Et ✨</button>
     </div>
+
+    <div id="step2" class="container hidden">
+        <div class="heart">🥺</div>
+        <h1>Beni Affeder misin?</h1>
+        <div class="buttons">
+            <div class="button-row">
+                <button id="yesBtn">EVET</button>
+                <button id="noBtn">HAYIR</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="step3" class="container hidden">
+        <div class="heart">💖</div>
+        <h1>Teşekkür Ederim!</h1>
+        <p>Seni her şeyden çok seviyorum, bir daha seni üzmemek için elimden geleni yapacağım!</p>
+    </div>
+
+    <script>
+        const s1 = document.getElementById('step1');
+        const s2 = document.getElementById('step2');
+        const s3 = document.getElementById('step3');
+        const nBtn = document.getElementById('nextBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        // Sayfa geçişi: 1 -> 2
+        nBtn.addEventListener('click', () => {
+            s1.classList.add('hidden');
+            s2.classList.remove('hidden');
+        });
+
+        // Sayfa geçişi: 2 -> 3 (Evet'e basınca)
+        yesBtn.addEventListener('click', () => {
+            s2.classList.add('hidden');
+            s3.classList.remove('hidden');
+        });
+
+        // Hayır butonunun kaçma fonksiyonu
+        const moveButton = () => {
+            const maxX = Math.max(0, window.innerWidth - noBtn.offsetWidth - 20);
+            const maxY = Math.max(0, window.innerHeight - noBtn.offsetHeight - 20);
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        };
+
+        // Mouse ile üzerine gelince kaç (Bilgisayar için)
+        noBtn.addEventListener('mouseover', moveButton);
+
+        // Dokunmaya çalışınca kaç (Mobil için)
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+    </script>
+
 </body>
 </html>
